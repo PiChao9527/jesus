@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <!-- 级别排序为： TRACE < DEBUG < INFO < WARN < ERROR -->
+    <property name="PROJECT_NAME" value="jesus" />
+    <property name="LOG_HOME" value="/opt/data/application/logs/jesus" />
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%class{20}:%line] - %m%n [traceLogId-%X{traceLogId}]</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 临界值过滤器,过滤掉低于指定临界值的日志 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+    <appender name="LogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/${PROJECT_NAME}.log</File>
+        <Append>true</Append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%class{20}:%line] - %m%n [traceLogId-%X{traceLogId}]</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- .%d 按时间归档，yyyy-MM-dd以天为单位归档.%i按文件大小归档 -->
+            <fileNamePattern>${LOG_HOME}/${PROJECT_NAME}_.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <!-- 保留30天 -->
+            <maxHistory>30</maxHistory>
+            <!-- 单个文件50MB时，触发滚动策略 -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>120MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+    <!-- 用来设置某一包或者具体类的日志打印级别,本身不进行日志打印,默认向<root>传递日志信息 -->
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.springframework.scheduling" level="INFO"/>
+    <logger name="org.springframework.amqp" level="ERROR"/>
+    <logger name="org.apache" level="ERROR"/>
+
+    <root level="INFO">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="LogFile"/>
+    </root>
+</configuration>

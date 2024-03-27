@@ -1,0 +1,13 @@
+spring:
+  #数据源配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/jesus?createDatabaseIfNotExist=true&autoReconnect=true&default-character-set=utf8&&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: jesus
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapperLocations: classpath*:mapper/**/*Dao.xml
+  executor-type: REUSE
+  configuration:
+    jdbc-type-for-null: 'NULL'

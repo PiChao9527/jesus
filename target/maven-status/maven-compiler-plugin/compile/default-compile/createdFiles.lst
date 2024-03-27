@@ -1,0 +1,8 @@
+com\jesus\truck\inspect\service\MiningTruckService.class
+com\jesus\truck\inspect\config\AutRefluxDataSourceConfig.class
+com\jesus\truck\inspect\service\MiningTruckServiceImpl.class
+com\jesus\truck\inspect\vo\MiningTruckInfoVo.class
+com\jesus\truck\inspect\vo\ResBean.class
+com\jesus\truck\inspect\controller\MinningTruckController.class
+com\jesus\truck\inspect\JesusApplication.class
+com\jesus\truck\inspect\po\MiningTruckInfo.class
