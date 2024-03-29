@@ -25,7 +25,6 @@ public class MiningTruckServiceImpl implements MiningTruckService{
 
     @Override
     public ResBean<MiningTruckInfoVo> truckInfoSave(MiningTruckInfoVo truckInfoVo) {
-        ResBean<MiningTruckInfoVo> resBean = new ResBean<>();
         if (null == truckInfoVo) {
             throw new BusinessException(9999L, "参数错误。");
         }
@@ -39,13 +38,13 @@ public class MiningTruckServiceImpl implements MiningTruckService{
 
     @Override
     public ResBean<List<MiningTruckInfoVo>> queryAll(MiningTruckQueryCondition queryCondition) {
-        ResBean<List<MiningTruckInfoVo>> resBean = new ResBean<>();
         if (null == queryCondition) {
             throw new BusinessException(9999L, "参数错误。");
         }
         PageHelper.startPage(queryCondition.getPageNo(), queryCondition.getPageSize());
         if(!StringUtils.isEmpty(queryCondition.getOrderBy())){
-            PageHelper.startPage(queryCondition.getPageNo(), queryCondition.getPageSize(), queryCondition.getOrderBy() + (StringUtils.isEmpty(queryCondition.getDirection()) ? " asc" : " desc"));
+            PageHelper.startPage(queryCondition.getPageNo(), queryCondition.getPageSize(),
+                    queryCondition.getOrderBy() + (StringUtils.isEmpty(queryCondition.getDirection()) ? " asc" : " desc"));
         }
         List<MiningTruckInfoVo> pageInfo = miningTruckInfoDao.queryAll(queryCondition);
         log.info("查询数量：{}", pageInfo.size());
