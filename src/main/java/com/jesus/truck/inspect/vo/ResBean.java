@@ -1,6 +1,5 @@
 package com.jesus.truck.inspect.vo;
 
-import com.sun.javaws.jnl.MatcherReturnCode;
 import lombok.Data;
 
 @Data
